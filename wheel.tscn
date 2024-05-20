@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2es1qtjhw6sr"]
+
+[ext_resource type="Script" path="res://wheel.gd" id="1_3ejpp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8fvln"]
+bounce = 1.0
+absorbent = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pbjh2"]
+
+[node name="Wheel" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_8fvln")
+script = ExtResource("1_3ejpp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pbjh2")

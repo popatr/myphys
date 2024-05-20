@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwupbcqfste3w"]
+
+[ext_resource type="Script" path="res://MyPlayer.gd" id="1_48y6k"]
+[ext_resource type="Script" path="res://PinJoint2D.gd" id="2_dc4bi"]
+[ext_resource type="Texture2D" uid="uid://tv5htjomj75s" path="res://icon.svg" id="3_gxebe"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rg3yg"]
+bounce = 1.0
+absorbent = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i6upc"]
+radius = 72.0069
+
+[node name="MyPlayer" type="RigidBody2D"]
+lock_rotation = true
+script = ExtResource("1_48y6k")
+
+[node name="WheelPin" type="PinJoint2D" parent="."]
+node_a = NodePath("..")
+node_b = NodePath("WalkWheel")
+script = ExtResource("2_dc4bi")
+
+[node name="WalkWheel" type="RigidBody2D" parent="WheelPin"]
+physics_material_override = SubResource("PhysicsMaterial_rg3yg")
+inertia = 0.01
+max_contacts_reported = 1
+contact_monitor = true
+angular_damp = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WheelPin/WalkWheel"]
+shape = SubResource("CircleShape2D_i6upc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 4.5)
+scale = Vector2(1, 0.789062)
+texture = ExtResource("3_gxebe")

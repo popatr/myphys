@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwupbcqfste3w"]
+
+[ext_resource type="Script" path="res://MyPlayer.gd" id="1_48y6k"]
+[ext_resource type="Texture2D" uid="uid://tv5htjomj75s" path="res://icon.svg" id="3_gxebe"]
+[ext_resource type="PackedScene" uid="uid://d0prynnrcotv5" path="res://walk_wheels.tscn" id="4_wyglv"]
+
+[node name="MyPlayer" type="RigidBody2D"]
+mass = 64.49
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_48y6k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 4.5)
+scale = Vector2(1, 0.789062)
+texture = ExtResource("3_gxebe")
+
+[node name="WalkWheels" parent="." instance=ExtResource("4_wyglv")]
+position = Vector2(0, 94)
+lock_rotation = true
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_a = NodePath("..")
+node_b = NodePath("../WalkWheels")
+bias = 0.008
+angular_limit_enabled = true
+angular_limit_lower = -0.00174533
+angular_limit_upper = 0.00174533

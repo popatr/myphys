@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0prynnrcotv5"]
+
+[ext_resource type="Script" path="res://walk_wheels.gd" id="1_3rp2e"]
+[ext_resource type="PackedScene" uid="uid://d2es1qtjhw6sr" path="res://wheel.tscn" id="1_m2upp"]
+[ext_resource type="Texture2D" uid="uid://tv5htjomj75s" path="res://icon.svg" id="2_atwca"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xrwu2"]
+bounce = 1.0
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jfkgb"]
+size = Vector2(61, 7)
+
+[node name="WalkWheels" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_xrwu2")
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_3rp2e")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(24, 0)
+node_a = NodePath("..")
+node_b = NodePath("Wheel")
+
+[node name="Wheel" parent="PinJoint2D" instance=ExtResource("1_m2upp")]
+max_contacts_reported = 1
+contact_monitor = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PinJoint2D/Wheel"]
+position = Vector2(-0.5, -1)
+scale = Vector2(0.226563, 0.21875)
+texture = ExtResource("2_atwca")
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="."]
+node_a = NodePath("..")
+node_b = NodePath("Wheel2")
+
+[node name="Wheel2" parent="PinJoint2D2" instance=ExtResource("1_m2upp")]
+max_contacts_reported = 1
+contact_monitor = true
+script = null
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="."]
+position = Vector2(-25, 0)
+node_a = NodePath("..")
+node_b = NodePath("Wheel3")
+
+[node name="Wheel3" parent="PinJoint2D3" instance=ExtResource("1_m2upp")]
+max_contacts_reported = 1
+contact_monitor = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PinJoint2D3/Wheel3"]
+position = Vector2(1, -1)
+scale = Vector2(0.25, 0.242188)
+texture = ExtResource("2_atwca")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -15.5)
+shape = SubResource("RectangleShape2D_jfkgb")
