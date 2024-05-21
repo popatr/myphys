@@ -10,8 +10,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
+var wasOnFloor:bool = false
 
-func _physics_process(delta):
+func _integrate_forces(state):
 	var onFloor = false
 	var groundRelative:Vector2
 	for col in get_colliding_bodies():
@@ -24,6 +26,11 @@ func _physics_process(delta):
 	var controlForces:Vector2 = Vector2.ZERO
 	var controlTorque = 0
 	
+	if(onFloor&&!wasOnFloor):
+		pass
+		
+		
+	wasOnFloor = onFloor
 	if onFloor:
 		if Input.is_action_just_pressed("ui_accept"):
 			apply_impulse(Vector2(0, -60000))
