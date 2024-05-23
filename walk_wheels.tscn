@@ -57,3 +57,5 @@ texture = ExtResource("2_atwca")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -15.5)
 shape = SubResource("RectangleShape2D_jfkgb")
+
+[connection signal="landed" from="PinJoint2D/Wheel" to="." method="_on_wheel_landed"]

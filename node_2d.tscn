@@ -8597,7 +8597,7 @@ position = Vector2(573, 607.5)
 shape = SubResource("RectangleShape2D_up0fr")
 
 [node name="MyPlayer" parent="." instance=ExtResource("1_le84k")]
-position = Vector2(207, 100)
+position = Vector2(505, 14)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MyPlayer"]
 position = Vector2(1, 0)

@@ -19,12 +19,12 @@ func addCollision(col:CollisionInfo)->CollisionInfo:
 	if(smoothedCollision.count < 0.01):
 		smoothedCollision.velocity1 = col.velocity1
 		smoothedCollision.velocity2 = Vector2.ZERO
-		smoothedCollision.force = Vector2.ZERO
+		smoothedCollision.deltaV = Vector2.ZERO
 		smoothedCollision.what = null
 	else:
 		smoothedCollision.velocity1 = smoothedCollision.velocity1 if(smoothedCollision.velocity1 > col.velocity1) else col.velocity1
 		smoothedCollision.velocity2 = smoothedCollision.velocity2 if(smoothedCollision.velocity2 > col.velocity2) else col.velocity2
-		smoothedCollision.force = smoothedCollision.force if(smoothedCollision.force > col.force) else col.force
+		smoothedCollision.deltaV = smoothedCollision.deltaV if(smoothedCollision.deltaV > col.deltaV) else col.deltaV
 	return smoothedCollision
 		
 	
