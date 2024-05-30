@@ -1,4 +1,4 @@
-extends Object
+extends Node
 class_name CollisionInfo
 
 var collisionThreshold = 0.01
@@ -7,6 +7,7 @@ var normal:Vector2 = Vector2.ZERO
 var deltaV:Vector2 = Vector2.ZERO
 var velocity1:Vector2 = Vector2.ZERO
 var velocity2:Vector2 = Vector2.ZERO
+var impulse = Vector2.ZERO
 var what:Node2D = null
 
 func collided()->bool:

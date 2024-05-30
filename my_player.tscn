@@ -22,7 +22,9 @@ lock_rotation = true
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 node_a = NodePath("..")
 node_b = NodePath("../WalkWheels")
-bias = 0.008
+bias = 0.9
 angular_limit_enabled = true
 angular_limit_lower = -0.00174533
 angular_limit_upper = 0.00174533
+
+[connection signal="landed" from="WalkWheels" to="." method="_on_walk_wheels_landed"]

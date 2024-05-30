@@ -1,8 +1,8 @@
 class_name WalkWheels
 extends RigidBody2D
 
-@onready var wheels:Array[Wheel] = getWheels(self)
-
+var wheels:Array[Wheel] = []
+var wheelCount:int = 0
 signal gotAir(time)
 signal landed(time, collision)
 
@@ -16,15 +16,16 @@ func getWheels(parent:Node2D):
 	for child in parent.get_children():
 		if(child is Wheel):
 			wlist.append(child)
-			child.connect("landed", wheelLanded)
-			child.connect("gotAir", wheelAir)
+			#child.gotAir.connect(wheelAir)
+			#child.hitSomething.connect(wheelLanded)
 		else:
 			wlist.append_array(getWheels(child))
 	return wlist
 		
 		
 var smoothedCollision = SmoothedCollision.new()  #todo: make sure the size matches the number of wheels
-func wheelLanded(who:Wheel, time:int, collision:CollisionInfo) -> void:
+
+func wheelLanded(who:Wheel, time:int, collision:CollisionInfo):
 	smoothedCollision.addCollision(collision)
 	landed.emit(time, smoothedCollision.smoothedCollision)
 	
@@ -43,15 +44,35 @@ func customCol():
 			return col
 	return []	
 	
+var lvo:Vector2 = Vector2.ZERO
+var isLanded:bool = false
+var collisionInfo:CollisionInfo = CollisionInfo.new()
+func _integrate_forces(state):
+	collisionInfo = CollisionInfo.new()
+	for wheel in wheels:
+		collisionInfo.count += wheel.collisionInfo.count
+		collisionInfo.deltaV += wheel.collisionInfo.deltaV / wheelCount
+		collisionInfo.impulse += wheel.collisionInfo.impulse / wheelCount
+		collisionInfo.normal += wheel.collisionInfo.normal / wheelCount
+		collisionInfo.velocity1 += wheel.collisionInfo.velocity1 / wheelCount
+		collisionInfo.velocity2 += wheel.collisionInfo.velocity2 / wheelCount
+		collisionInfo.what = wheel.collisionInfo.what
+	
+	linear_velocity = collisionInfo.velocity1
+	
+	
+	
+		
+	lvo = state.linear_velocity
+	
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	wheels = getWheels(self)
+	wheelCount = wheels.size()
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-
-func _on_wheel_landed(who, time, collision):
-	pass # Replace with function body.

@@ -8,7 +8,8 @@ func _ready():
 	
 
 func landed(time:int, collision:CollisionInfo):
-	apply_impulse(collision.deltaV * mass)
+	apply_impulse(collision.impulse)
+	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -17,6 +18,10 @@ func _process(delta):
 var wasOnFloor:bool = false
 
 func _integrate_forces(state):
+	
+	if(wheel.collisionInfo.count > 1 ):
+		linear_velocity = wheel.collisionInfo.velocity1
+	
 	var onFloor = false
 	var groundRelative:Vector2
 	for col in get_colliding_bodies():
